@@ -8,8 +8,10 @@ const TimerChallenge = ({ title, targetTime }) => {
   const timerIsAtive=timeRemaining>0 && timeRemaining<targetTime*1000;
   if (timeRemaining <=0) {
     clearInterval(timer.current);
-    settimeRemaining(targetTime*1000);
     dialog.current.open();
+  }
+  function handleRest() {
+    settimeRemaining(targetTime*1000);
   }
   function handleStart() {
     timer.current = setInterval(() => {
@@ -24,7 +26,7 @@ const TimerChallenge = ({ title, targetTime }) => {
   return (
     <>
     
-    <ResultModal ref={dialog} targetTime={targetTime} remainingTime={timeRemaining}/>
+    <ResultModal ref={dialog} targetTime={targetTime} remainingTime={timeRemaining} onRest={handleRest}/>
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
